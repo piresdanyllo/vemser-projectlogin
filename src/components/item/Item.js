@@ -1,12 +1,22 @@
-import { Link } from "react-router-dom";
+import { ListItem, Anchor } from "./Item.styled";
+import { IoIosPeople } from "react-icons/io";
+import { FaAddressBook } from "react-icons/fa";
 
 const Item = ({ name, url }) => {
   return (
-    <>
-      <li>
-        <Link to={url}>{name}</Link>
-      </li>
-    </>
+    <ListItem>
+      {name === "Pessoas" ? (
+        <>
+          <IoIosPeople />
+          <Anchor to={url}>{name}</Anchor>
+        </>
+      ) : (
+        <>
+          <FaAddressBook />
+          <Anchor to={url}>{name}</Anchor>
+        </>
+      )}
+    </ListItem>
   );
 };
 

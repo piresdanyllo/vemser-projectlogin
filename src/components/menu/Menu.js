@@ -1,37 +1,25 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useContext } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { BiLogOut } from "react-icons/bi";
 import Item from "../item/Item";
+import { Logout, Nav } from "./Menu.styled";
 
 const Menu = () => {
   const { handleLogout } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const token = localStorage.getItem("token");
-
-  useEffect(() => {
-    if (!token) {
-      navigate("/");
-    }
-  }, []);
-
   return (
     <>
-      <nav>
+      <Nav>
         <ul>
-          {!token ? (
-            <>
-              <Item name="Login" url="/" />
-              <Item name="Cadastrar Usuário" url="/users" />
-            </>
-          ) : (
             <>
               <Item name="Endereço" url="/address" />
               <Item name="Pessoas" url="/people" />
             </>
-          )}
         </ul>
-      </nav>
-      {token && <button onClick={handleLogout}>Sair</button>}
+      </Nav>
+      <Logout onClick={handleLogout}>
+        <BiLogOut></BiLogOut>
+        <span>Sair</span>
+      </Logout>
     </>
   );
 };

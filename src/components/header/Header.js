@@ -1,14 +1,16 @@
-import {GiBowman} from "react-icons/gi"
-import Menu from "../menu/Menu"
-import styles from './Header.module.css'
+import Menu from "../menu/Menu";
+import { Logo, Container } from "./Header.styled";
 
 const Header = () => {
   return (
-    <header>
-        <GiBowman/>
-        <Menu/>
-    </header>
-  )
-}
+    <Container>
+      <div>
+        <Logo />
+        <h1>Wolf Pack</h1>
+      </div>
+      <Menu />
+    </Container>
+  );
+};
 
-export default Header
+export default Header;

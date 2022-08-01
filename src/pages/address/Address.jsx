@@ -1,63 +1,125 @@
-import axios from "axios";
-import { Formik, Form, Field } from "formik";
-import InputMask from 'react-input-mask'
+import Header from "../../components/header/Header";
+import {
+  Container,
+  ContainerTop,
+  ContainerTopRight,
+  ContainerAddress,
+  ContainerSortFilter,
+  AllAddress,
+  TitleAddress,
+  ModalDelete,
+  ButtonModalContainer,
+  ButtonsModal,
+} from "./Address.styled";
+import { AiOutlineSearch, AiFillBell, AiOutlineUser } from "react-icons/ai";
+import { BiSortDown } from "react-icons/bi";
+import { HiFilter } from "react-icons/hi";
+import { AddressContext } from "../../context/AddressContext";
+import { useContext, useEffect, useState } from "react";
+import AddressList from "./AddressList";
+import Modal from "react-modal";
 
 const Address = () => {
-  
-  const handleChange = (event, setFieldValue) => {
-    const value = event.target.value;
-    buscarCep(value, setFieldValue);
+  const { getAddress, personAddress, deleteAddress } = useContext(AddressContext);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [idEndereco, setIdEndereco] = useState("");
+
+  Modal.setAppElement("#root");
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      width: "300px",
+      height: "150px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      textAlign: "center",
+      transform: "translate(-50%, -50%)",
+    },
   };
 
-  const buscarCep = async (value, setFieldValue) => {
-    const valorSemTraco = value?.replace(/[^0-9]/g, "");
-    try {
-      const { data } = await axios.get(
-        `http://viacep.com.br/ws/${valorSemTraco}/json/`
-      );
-      console.log(data);
-      setFieldValue('logradouro', data.logradouro)
-      setFieldValue('bairro', data.bairro)
-      setFieldValue('localidade', data.localidade)
-      setFieldValue('uf', data.uf)
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  function openModal(idEndereco) {
+    setIsOpen(true);
+    setIdEndereco(idEndereco);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  useEffect(() => {
+    getAddress();
+  }, []);
 
   return (
     <div>
-      <h1>Endereço</h1>
-      <Formik
-        initialValues={{
-          cep: "",
-          logradouro: "",
-          bairro: "",
-          localidade: "",
-          uf: "",
-        }}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
+      <Header />
+      <div>
+        <Container>
+          <ContainerTop>
+            <h1>Endereços</h1>
+            <ContainerTopRight>
+              <div>
+                <AiOutlineSearch />
+                <AiFillBell />
+              </div>
+              <div>
+                <span>usuário</span>
+                <div>
+                  <AiOutlineUser />
+                </div>
+              </div>
+            </ContainerTopRight>
+          </ContainerTop>
+          <ContainerAddress>
+            <div>
+              <span>Todas endereços cadastrados</span>
+              <div>
+                <ContainerSortFilter>
+                  <BiSortDown />
+                  <span>Sort</span>
+                </ContainerSortFilter>
+                <ContainerSortFilter>
+                  <HiFilter />
+                  <span>Filter</span>
+                </ContainerSortFilter>
+              </div>
+            </div>
+            <TitleAddress>
+              <span>Nome</span>
+              <span>Tipo</span>
+              <span>CEP</span>
+              <span>Rua</span>
+              <span>Número</span>
+              <span>Complemento</span>
+              <span>Cidade</span>
+              <span>Estado</span>
+              <span>País</span>
+              <span>Ações</span>
+            </TitleAddress>
+            <AllAddress>
+              <AddressList openModal={openModal}/>
+            </AllAddress>
+          </ContainerAddress>
+        </Container>
+        <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example Modal"
       >
-        {({ setFieldValue }) => (
-          <Form>
-            <Field
-            render={() => (
-            <InputMask
-              name="cep"
-              onBlur={(event) => handleChange(event, setFieldValue)}
-              mask= "99999-999"
-              placeholder="Digite seu cep"/>
-            )}/>
-            <Field name="logradouro" />
-            <Field name="bairro" />
-            <Field name="localidade" />
-            <Field name="uf" />
-            <button type="submit">Cadastrar</button>
-          </Form>
-        )}
-      </Formik>
+        <ModalDelete>Tem certeza que deseja deletar?</ModalDelete>
+        <ButtonModalContainer>
+          <ButtonsModal onClick={closeModal}>Fechar</ButtonsModal>
+          <ButtonsModal onClick={() => deleteAddress(idEndereco, setIsOpen)}>Deletar</ButtonsModal>
+        </ButtonModalContainer>
+      </Modal>
+      </div>
     </div>
   );
 };
