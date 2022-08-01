@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Container = styled.div`
   position: absolute;
   left: 255px;
-  width: calc(100vw - 255px);
-  padding: 30px;
+  width: calc(100vw - 285px);
+  padding: 20px;
 
   > div {
     display: flex;
@@ -13,7 +13,7 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
-  padding: 15px 0;
+  padding: 10px 0;
   border: none;
   border-radius: 4px;
   text-transform: uppercase;
