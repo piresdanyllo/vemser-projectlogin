@@ -35,7 +35,6 @@ const AddressForm = () => {
   if (!address && idEndereco !== undefined) {
     return;
   }
-console.log(address)
   return (
     <>
       <Header />
@@ -47,7 +46,7 @@ console.log(address)
         </h1>
         <Formik
           initialValues={{
-            cep: idEndereco === undefined ? "" : '12916200',
+            cep: idEndereco === undefined ? "" : "",
             logradouro: idEndereco === undefined ? "" : address.logradouro,
             numero: idEndereco === undefined ? "" : address.numero,
             complemento: idEndereco === undefined ? "" : address.complemento,
@@ -76,7 +75,7 @@ console.log(address)
         >
           {({ setFieldValue }) => (
             <Form>
-              <label htmlFor="cep">Nome</label>
+              <label htmlFor="cep">CEP</label>
               <MaskedInput
                 name="cep"
                 onBlur={(event) => handleChange(event, setFieldValue)}

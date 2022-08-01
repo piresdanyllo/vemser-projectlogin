@@ -20,7 +20,8 @@ import AddressList from "./AddressList";
 import Modal from "react-modal";
 
 const Address = () => {
-  const { getAddress, personAddress, deleteAddress } = useContext(AddressContext);
+  const { getAddress, personAddress, deleteAddress } =
+    useContext(AddressContext);
   const [modalIsOpen, setIsOpen] = useState(false);
   const [idEndereco, setIdEndereco] = useState("");
 
@@ -103,22 +104,24 @@ const Address = () => {
               <span>Ações</span>
             </TitleAddress>
             <AllAddress>
-              <AddressList openModal={openModal}/>
+              <AddressList openModal={openModal} />
             </AllAddress>
           </ContainerAddress>
         </Container>
         <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <ModalDelete>Tem certeza que deseja deletar?</ModalDelete>
-        <ButtonModalContainer>
-          <ButtonsModal onClick={closeModal}>Fechar</ButtonsModal>
-          <ButtonsModal onClick={() => deleteAddress(idEndereco, setIsOpen)}>Deletar</ButtonsModal>
-        </ButtonModalContainer>
-      </Modal>
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <ModalDelete>Tem certeza que deseja deletar?</ModalDelete>
+          <ButtonModalContainer>
+            <ButtonsModal onClick={closeModal}>Fechar</ButtonsModal>
+            <ButtonsModal onClick={() => deleteAddress(idEndereco, setIsOpen)}>
+              Deletar
+            </ButtonsModal>
+          </ButtonModalContainer>
+        </Modal>
       </div>
     </div>
   );
