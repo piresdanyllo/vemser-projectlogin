@@ -13,12 +13,8 @@ const AddressList = ({openModal}) => {
         <p>{item.nome}</p>
         <p>{end.tipo}</p>
         <p>{FormatCepToRender(end.cep)}</p>
-        <p>{end.logradouro}</p>
-        <p>{end.numero}</p>
-        <p>{end.complemento}</p>
         <p>{end.cidade}</p>
         <p>{end.estado}</p>
-        <p>{end.pais}</p>
         <div>
           <ButtonUpdateDelete onClick={() => navigateToUpdateAddress(item.idPessoa, end.idEndereco)}>
             Atualizar

@@ -18,6 +18,7 @@ import { AddressContext } from "../../context/AddressContext";
 import { useContext, useEffect, useState } from "react";
 import AddressList from "./AddressList";
 import Modal from "react-modal";
+import { ToastContainer } from "react-toastify";
 
 const Address = () => {
   const { getAddress, personAddress, deleteAddress } =
@@ -95,12 +96,8 @@ const Address = () => {
               <span>Nome</span>
               <span>Tipo</span>
               <span>CEP</span>
-              <span>Rua</span>
-              <span>Número</span>
-              <span>Complemento</span>
               <span>Cidade</span>
               <span>Estado</span>
-              <span>País</span>
               <span>Ações</span>
             </TitleAddress>
             <AllAddress>
@@ -123,6 +120,7 @@ const Address = () => {
           </ButtonModalContainer>
         </Modal>
       </div>
+      <ToastContainer />
     </div>
   );
 };

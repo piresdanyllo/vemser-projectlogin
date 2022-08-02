@@ -189,6 +189,7 @@ export const PeopleCard = styled.div`
 
   & div {
     display: flex;
+    justify-content: space-between;
 
     & button {
       :nth-child(2) {
@@ -199,8 +200,8 @@ export const PeopleCard = styled.div`
 `;
 
 export const ButtonUpdateDelete = styled(Button)`
-  width: 120px;
-`
+  width: 90px;
+`;
 
 export const ModalDelete = styled.div`
   margin-bottom: 20px;
@@ -213,7 +214,7 @@ export const ButtonModalContainer = styled.div`
 
 export const ButtonsModal = styled(Button)`
   width: 100px;
-`
+`;
 
 export const ContainerForm = styled.div`
   position: absolute;
@@ -234,17 +235,23 @@ export const ContainerForm = styled.div`
     flex-direction: column;
 
     & label {
+      color: #9fa2b4;
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: bold;
       padding-bottom: 10px;
     }
 
     & input {
       width: 700px;
       height: 35px;
-      padding: 10px 0 10px 10px;
       outline: none;
-      border: 1px solid #363740;
       border-radius: 4px;
       margin-bottom: 15px;
+      background: #fcfdfe;
+      border: 1px solid #f0f1f7;
+      border-radius: 8px;
+      padding: 11px 8px 11px 16px;
     }
   }
 `;

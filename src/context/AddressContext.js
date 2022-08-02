@@ -1,6 +1,8 @@
 import { createContext, useState } from "react";
 import axios from "axios";
 import api from '../api'
+import { toastSucess } from "../components/toast/Toast";
+import { useNavigate } from "react-router-dom";
 
 const AddressContext = createContext();
 
@@ -8,6 +10,7 @@ const AddressProvider = ({ children }) => {
 
   const [personAddress, setPersonAddress] = useState([]);
   const [address, setAddress] = useState();
+  const navigate = useNavigate()
 
   const handleChange = (event, setFieldValue) => {
     const value = event.target.value;
@@ -62,10 +65,11 @@ const AddressProvider = ({ children }) => {
 
   const createAddress = async (idPessoa, values) => {
     try {
-      await api.post(`/endereco/{idPessoa}?idPessoa=${idPessoa}`, values);
-      const token = localStorage.getItem("token");
-      api.defaults.headers.common["Authorization"] = token;
-      window.location.href = "/address";
+      // await api.post(`/endereco/{idPessoa}?idPessoa=${idPessoa}`, values);
+      // const token = localStorage.getItem("token");
+      // api.defaults.headers.common["Authorization"] = token;
+      // toastSucess('Cadastrado com sucesso')
+      // navigate("/address");
     } catch (error) {
       console.log(error);
     }
@@ -76,7 +80,8 @@ const AddressProvider = ({ children }) => {
       await api.delete(`/endereco/${idEndereco}`);
       const token = localStorage.getItem("token");
       api.defaults.headers.common["Authorization"] = token;
-      window.location.href = "/address";
+      toastSucess('Deletado com sucesso')
+      getAddress()
     } catch (error) {
       console.log(error);
     }
@@ -88,8 +93,8 @@ const AddressProvider = ({ children }) => {
       await api.put(`/endereco/${idEndereco}`, address);
       const token = localStorage.getItem("token");
       api.defaults.headers.common["Authorization"] = token;
-      console.log("editado com sucesso");
-      window.location.href = "/address";
+      toastSucess('Atualizado com sucesso')
+      navigate("/address");
     } catch (error) {
       console.log(error);
     }

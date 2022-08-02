@@ -19,6 +19,7 @@ import {
 import { AiOutlineSearch, AiFillBell, AiOutlineUser } from "react-icons/ai";
 import { BiSortDown } from "react-icons/bi";
 import { HiFilter } from "react-icons/hi";
+import { ToastContainer } from "react-toastify";
 
 const People = () => {
   const { getPeople, people, navigateToCreate, deletePerson } =
@@ -118,6 +119,7 @@ const People = () => {
           </ButtonModalContainer>
         </Modal>
       </div>
+      <ToastContainer/>      
     </div>
   );
 };

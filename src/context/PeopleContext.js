@@ -1,11 +1,14 @@
 import { createContext, useState } from "react";
 import api from "../api";
+import { toastError, toastSucess } from "../components/toast/Toast";
+import { useNavigate } from "react-router-dom";
 
 const PeopleContext = createContext();
 
 const PeopleProvider = ({ children }) => {
   const [people, setPeople] = useState([]);
   const [person, setPerson] = useState();
+  const navigate = useNavigate()
 
   const getPeople = async () => {
     try {
@@ -23,6 +26,7 @@ const PeopleProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       api.defaults.headers.common["Authorization"] = token;
     } catch (error) {
+      toastError('Ops! Algo deu errado')
       console.log(error);
     }
   };
@@ -32,9 +36,10 @@ const PeopleProvider = ({ children }) => {
       await api.post("/pessoa", person);
       const token = localStorage.getItem("token");
       api.defaults.headers.common["Authorization"] = token;
-      console.log("cadastro realizado com sucesso");
-      window.location.href = "/people";
+      toastSucess('Cadastrado com sucesso')
+      navigate("/people");
     } catch (error) {
+      toastError('Ops! Algo deu errado')
       console.log(error);
     }
   };
@@ -44,9 +49,10 @@ const PeopleProvider = ({ children }) => {
       await api.put(`/pessoa/${id}`, person);
       const token = localStorage.getItem("token");
       api.defaults.headers.common["Authorization"] = token;
-      console.log("editado com sucesso");
-      window.location.href = "/people";
+      toastSucess('Atualizado com sucesso')
+      navigate("/people");
     } catch (error) {
+      toastError('Ops! Algo deu errado')
       console.log(error);
     }
   };
@@ -57,9 +63,10 @@ const PeopleProvider = ({ children }) => {
       await api.delete(`/pessoa/${id}`);
       const token = localStorage.getItem("token");
       api.defaults.headers.common["Authorization"] = token;
-      console.log("deletado com sucesso");
+      toastSucess('Deletado com sucesso')
       getPeople();
     } catch (error) {
+      toastError('Ops! Algo deu errado')
       console.log(error);
     }
     setIsOpen(false);

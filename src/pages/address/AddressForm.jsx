@@ -4,12 +4,10 @@ import { AddressContext } from "../../context/AddressContext";
 import MaskedInput from "react-text-mask";
 import Header from "../../components/header/Header";
 import { ButtonAdd, ContainerForm } from "../people/People.styled";
-import {
-  FormatCepToDatabase,
-  FormatCepToRender,
-} from "../../utils/globalFunctions";
+import { FormatCepToDatabase } from "../../utils/globalFunctions";
 import { useParams } from "react-router-dom";
 import { cepMask } from "../../utils/mask";
+import { Select } from "./Address.styled";
 
 const AddressForm = () => {
   const {
@@ -25,7 +23,7 @@ const AddressForm = () => {
   const setup = async () => {
     if (idEndereco) {
       getAddressById(idEndereco);
-      setIsUpdate(true)
+      setIsUpdate(true);
     }
   };
   useEffect(() => {
@@ -56,6 +54,7 @@ const AddressForm = () => {
             tipo: idEndereco === undefined ? "" : address.tipo,
           }}
           onSubmit={(values) => {
+            console.log(values)
             const valuesFormattedForDatabase = {
               idPessoa: parseInt(idPessoa),
               cep: FormatCepToDatabase(values.cep),
@@ -65,7 +64,7 @@ const AddressForm = () => {
               cidade: values.localidade,
               estado: values.uf,
               pais: values.pais,
-              tipo: values.tipo.toUpperCase(),
+              tipo: values.tipo,
             };
             console.log(valuesFormattedForDatabase);
             idEndereco === undefined
@@ -75,30 +74,30 @@ const AddressForm = () => {
         >
           {({ setFieldValue }) => (
             <Form>
-              <label htmlFor="cep">CEP</label>
+              <label htmlFor="cep">CEP *</label>
               <MaskedInput
                 name="cep"
                 onBlur={(event) => handleChange(event, setFieldValue)}
                 mask={cepMask}
                 placeholder="Digite seu cep"
               />
-              <label htmlFor="logradouro">Logradouro</label>
+              <label htmlFor="logradouro">Logradouro *</label>
               <Field name="logradouro" />
-              <label htmlFor="numero">Número</label>
+              <label htmlFor="numero">Número *</label>
               <Field name="numero" placeholder="Digite o número" />
               <label htmlFor="complemento">Complemento</label>
               <Field name="complemento" placeholder="Digite o complemento" />
-              <label htmlFor="localidade">Cidade</label>
+              <label htmlFor="localidade">Cidade *</label>
               <Field name="localidade" />
-              <label htmlFor="uf">Estado</label>
+              <label htmlFor="uf">Estado *</label>
               <Field name="uf" />
-              <label htmlFor="pais">País</label>
+              <label htmlFor="pais">País *</label>
               <Field name="pais" placeholder="Digite seu país" />
-              <label htmlFor="tipo">Tipo</label>
-              <Field
-                name="tipo"
-                placeholder="Digite entre RESIDENCIAL ou COMERCIAL"
-              />
+              <label htmlFor="tipo">Tipo *</label>
+              <Select as="select" name="tipo">
+                <option values="COMERCIAL">Comercial</option>
+                <option values="RESIDENCIAL">Residencial</option>
+              </Select>
               <ButtonAdd type="submit">
                 {idEndereco === undefined ? "Cadastrar" : "Atualizar"}
               </ButtonAdd>

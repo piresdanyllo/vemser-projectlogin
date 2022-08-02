@@ -61,15 +61,16 @@ const PeopleForm = () => {
         >
           {(props) => (
             <form onSubmit={props.handleSubmit}>
-              <label htmlFor="nome">Nome</label>
+              <label htmlFor="nome">Nome *</label>
               <input
                 type="text"
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
                 value={props.values.nome}
                 name="nome"
+                placeholder="Digite seu nome"
               />
-              <label htmlFor="dataNascimento">Data de Nascimento</label>
+              <label htmlFor="dataNascimento">Data de Nascimento *</label>
               <MaskedInput
                 mask={dataMask}
                 type="text"
@@ -77,8 +78,9 @@ const PeopleForm = () => {
                 onBlur={props.handleBlur}
                 value={props.values.dataNascimento}
                 name="dataNascimento"
+                placeholder="Digite sua data de nascimento"
               />
-              <label htmlFor="cpf">CPF</label>
+              <label htmlFor="cpf">CPF *</label>
               <MaskedInput
                 mask={cpfMask}
                 type="text"
@@ -86,16 +88,20 @@ const PeopleForm = () => {
                 onBlur={props.handleBlur}
                 value={props.values.cpf}
                 name="cpf"
+                placeholder="Digite seu CPF"
               />
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Email *</label>
               <input
                 type="email"
                 onChange={props.handleChange}
                 onBlur={props.handleBlur}
                 value={props.values.email}
                 name="email"
+                placeholder="Digite seu email"
               />
-              <ButtonCreateEdit type="submit">{id ? "Atualizar" : "Cadastrar"}</ButtonCreateEdit>
+              <ButtonCreateEdit type="submit">
+                {id ? "Atualizar" : "Cadastrar"}
+              </ButtonCreateEdit>
             </form>
           )}
         </Formik>
